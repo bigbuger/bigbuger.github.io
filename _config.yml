@@ -1,1 +1,16 @@
-theme: jekyll-theme-time-machine
+# Syntax highlighting
+highlighter:         pygments
+
+# Permalinks
+permalink:           pretty
+
+# Setup
+title:               An's blog
+tagline:             一个 CURD 码农的博客
+
+# Assets
+#
+# We specify the directory for Jekyll so we can use @imports.
+sass:
+  sass_dir:          /_scss
+  style:            :compressed
