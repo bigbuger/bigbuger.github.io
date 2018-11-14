@@ -18,3 +18,12 @@
 footer {
     margin-bottom: 2rem;
 }
+
+.post-date {
+    font-size: smaller;
+    color: gray;    
+}
+
+.post-date:before {
+    content: "🕐";
+}
