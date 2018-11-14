@@ -1,8 +1,11 @@
 # Syntax highlighting
-highlighter:         pygments
+highlighter:         rouge
+markdown:            kramdown
 
 # Permalinks
 permalink:           pretty
+
+
 
 # Setup
 title:               An's blog
