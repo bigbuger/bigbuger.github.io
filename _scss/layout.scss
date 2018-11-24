@@ -12,7 +12,17 @@
 }
 
 .content {
-    min-height: 20rem;
+    //min-height: 20rem;
+}
+
+.copyright {
+    background-color: cornsilk;
+    font-size: smaller;
+}
+
+.copyright p {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 footer {
@@ -22,8 +32,4 @@ footer {
 .post-date {
     font-size: smaller;
     color: gray;    
-}
-
-.post-date:before {
-    content: "🕐";
 }

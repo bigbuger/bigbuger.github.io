@@ -9,7 +9,7 @@ permalink:           pretty
 
 # Setup
 title:               An's blog
-tagline:             一个 CURD 码农的博客
+tagline:             一个 CRUD 码农的博客
 
 # Assets
 #
@@ -17,3 +17,6 @@ tagline:             一个 CURD 码农的博客
 sass:
   sass_dir:          /_scss
   style:            :compressed
+
+plugins:
+  - jemoji
