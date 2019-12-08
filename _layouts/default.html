@@ -10,6 +10,11 @@
           <a href="/" title="Home">{{ site.title }}</a>
         </h3>
         <small>{{ site.tagline }}</small>
+	<br/>
+	<small>友情链接:<small>
+	{% for friend in site.friends %}
+	<small><a href={{ friend.url }}>{{ friend.name }}<a/><small>
+	{% endfor %}
       </header>
       
       <hr>

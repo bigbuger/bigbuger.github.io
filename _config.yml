@@ -10,6 +10,9 @@ permalink:           pretty
 # Setup
 title:               An's blog
 tagline:             一个 CRUD 码农的博客
+friends:
+  - name: tenfy' blog
+    url: https://tenfy.cn/
 
 # Assets
 #
@@ -20,3 +23,4 @@ sass:
 
 plugins:
   - jemoji
+  - jekyll-org
