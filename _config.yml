@@ -26,3 +26,5 @@ sass:
 plugins:
   - jemoji
   - jekyll-org
+  - jekyll-sitemap
+  - jekyll-seo-tag
