@@ -2,10 +2,12 @@
 layout: default
 ---
 
+{% if page.toc %}
 <div aria-label="Table of Contents" class="toc">
   <span>目录<span>
     {{ content | toc_only }}
 </div>
+{% endif %}
 
 <article class="post">
   <h1 class="post-title">{{ page.title }}</h1>
