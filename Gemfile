@@ -9,4 +9,4 @@ gem 'jekyll-seo-tag'
 
 
 gem "pygments.rb", "~> 2.3"
-gem "jekyll-toc"
+# gem "jekyll-toc"
