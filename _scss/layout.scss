@@ -2,7 +2,7 @@
 //
 // Styles for managing the structural hierarchy of the site.
 .container {
-    max-width: 38rem;
+    max-width: 50rem;
     padding-left:  1.5rem;
     padding-right: 1.5rem;
     margin-left:  auto;
@@ -13,6 +13,29 @@
 
 .content {
     //min-height: 20rem;
+}
+
+.post {
+    max-width: 38rem;
+    border-right: 8px,solid;
+}
+
+.toc {
+    position: fixed;
+    float: right;
+    padding-left: 40rem;
+    color: #a9a9a9;
+    font-size: 15px;
+}
+
+li.toc-entry a {
+    color: #a9a9a9;
+    font-size: 15px;
+    &:hover,
+    &:focus {
+	text-decoration: underline;
+	color: blue
+    }
 }
 
 .copyright {

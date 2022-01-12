@@ -28,3 +28,4 @@ plugins:
   - jekyll-org
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-toc
