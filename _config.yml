@@ -10,6 +10,8 @@ permalink:           pretty
 # Setup
 title:               An's blog
 tagline:             一个 CRUD 码农的博客
+description:         Welcome to my blog
+author:              an
 friends:
   - name: tenfy' blog
     url: https://tenfy.cn/
