@@ -5,7 +5,7 @@
 
   <body>
     <div class="container">
-      <header class="masthead">
+      <header class="masthead centre">
         <h3 class="masthead-title">
           <a href="/" title="Home">{{ site.title }}</a> |
 	  <a href="/feed.xml" class="rss">RSS</a>
@@ -19,14 +19,14 @@
       </div>
       <hr>
       
-      <div>
+      <div class="centre">
 	<small>友情链接:<small>
 	{% for friend in site.friends %}
 	<a href="{{ friend.url }}">{{ friend.name }}</a>
 	{% endfor %}
       </div>
       
-      <footer>
+      <footer class="centre">
         &copy; {{ site.time | date: '%Y' }}. All rights reserved.
       </footer>
     </div>

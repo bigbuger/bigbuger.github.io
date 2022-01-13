@@ -2,7 +2,7 @@
 //
 // Styles for managing the structural hierarchy of the site.
 .container {
-    max-width: 50rem;
+    max-width: 65rem;
     padding-left:  1.5rem;
     padding-right: 1.5rem;
     margin-left:  auto;
@@ -15,15 +15,15 @@
     //min-height: 20rem;
 }
 
-.post {
-    max-width: 38rem;
-    border-right: 8px,solid;
+.centre {
+    max-width: 50rem;
+    padding-left: 12rem;
 }
 
 .toc {
+    max-width: 10rem;
     position: fixed;
-    float: right;
-    padding-left: 40rem;
+    float: left;
     color: #a9a9a9;
     font-size: 15px;
 }

@@ -68,6 +68,7 @@
     {% endif %}
 
     {% capture jekyll_toc %}{% endcapture %}
+    {% assign beforeContent = include.before_content | default: '' %}
     {% assign orderedList = include.ordered | default: false %}
     {% assign baseURL = include.base_url | default: include.baseurl | default: '' %}
     {% assign skipNoIDs = include.skip_no_ids | default: include.skipNoIDs | default: false %}
@@ -165,6 +166,9 @@
     {% endfor %}
 
     {% if jekyll_toc != '' %}
+        {% unless beforeContent == empty%}
+	    {% capture jekyll_toc %}{{ beforeContent }}{{ jekyll_toc }}{% endcapture %}
+	{% endunless %}
         {% assign rootAttributes = '' %}
         {% if include.class and include.class != blank %}
             {% capture rootAttributes %} class="{{ include.class | split: '.' | join: ' ' }}"{% endcapture %}

@@ -2,14 +2,12 @@
 layout: default
 ---
 
-{% if page.toc %}
 <div aria-label="Table of Contents" class="toc">
-  <span>目录<span>
-    {% include toc.html html=content item_class='toc-entry' %}
+    {% include toc.html html=content item_class='toc-entry' before_content='<span>目录<span>'%}
 </div>
-{% endif %}
 
-<article class="post">
+
+<article class="post centre">
   <h1 class="post-title">{{ page.title }}</h1>
   <p class="post-date">&nbsp;{{ page.date | date: '%Y-%m-%d' }}</p>
   {{ content }}
