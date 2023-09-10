@@ -1,4 +1,5 @@
 # Syntax highlighting
+# rougify style 'base16.solarized.light'> css/syntax.css
 highlighter:         rouge
 markdown:            kramdown
 
