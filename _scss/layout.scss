@@ -2,11 +2,9 @@
 //
 // Styles for managing the structural hierarchy of the site.
 .container {
-    max-width: 65rem;
     padding-left:  1.5rem;
     padding-right: 1.5rem;
-    margin-left:  auto;
-    margin-right: auto;
+    margin: 15%;
     background: white;
     min-height: 30rem;
 }
@@ -16,7 +14,7 @@
 }
 
 .centre {
-    max-width: 50rem;
+    //max-width: 50rem;
     padding-left: 12rem;
 }
 

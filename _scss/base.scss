@@ -15,17 +15,21 @@ html,body {
 }
 
 html {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: -apple-system, "PingFang SC", 'Helvetica Neue', Arial, 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
     font-size: 16px;
-    line-height: 1.5;
-
+    line-height: 1.8;
+    @media (min-width: 38em) {
+	font-size: 16px;
+    }
 }
 
 body {
     color: #515151;
     //background-color: #f6f6f6;
     -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
     -ms-text-size-adjust: 100%;
+   text-rendering: optimizelegibility;
 }
 
 a.rss {
