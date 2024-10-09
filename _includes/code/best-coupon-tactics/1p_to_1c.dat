@@ -1,0 +1,16 @@
+data;
+set Product := p1 p2 p3;
+set Coupon := c1 c2;
+	
+/* 商品价格 */
+param p :=
+	p1 4
+	p2 3
+	p3 2 ;
+
+/* c 最大可用 w 折扣  */
+param : c w :=
+	 c1 5 0.2
+	 c2 3 0.15 ;
+
+end;

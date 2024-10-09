@@ -4,7 +4,8 @@
 .container {
     padding-left:  1.5rem;
     padding-right: 1.5rem;
-    margin: 18%;
+    margin-left: 5%;
+    margin-right: 20%;
     margin-top: 0;
     background: white;
     min-height: 30rem;
@@ -19,8 +20,12 @@
     padding-left: 12rem;
 }
 
+.post {
+    margin-left: 10%;
+}
+
 .toc {
-    max-width: 10rem;
+    max-width: 100rem;
     position: fixed;
     float: left;
     color: #a9a9a9;
