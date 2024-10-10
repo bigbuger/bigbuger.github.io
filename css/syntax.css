@@ -2,11 +2,14 @@
 .highlight table pre { margin: 0; }
 .highlight, .highlight .w {
     color: #586e75;
-    background: #eff1ff;
 }
+
 pre.highlight {
     border: 1px solid #c9e1f6;
     border-radius: 6px;
+    background: #eff1ff;
+    max-width: 90%;
+    margin-left: 5%;
 }
 
 .highlight .err {

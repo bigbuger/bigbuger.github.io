@@ -35,6 +35,4 @@ for {j in Coupon} {
 printf "最大优惠金额: %f\n", d;
 printf "result end\n";
 
-
 end;
-

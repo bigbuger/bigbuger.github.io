@@ -16,11 +16,9 @@ html,body {
 
 html {
     font-family: -apple-system, "PingFang SC", 'Helvetica Neue', Arial, 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      
     font-size: 16px;
     line-height: 1.8;
-    @media (min-width: 38em) {
-	font-size: 16px;
-    }
 }
 
 body {
@@ -72,9 +70,11 @@ img {
 // Tables
 table {
     margin-bottom: 1rem;
-    width: 100%;
+    width: auto;
+    min-width: 60%;
     border: 1px solid #e5e5e5;
     border-collapse: collapse;
+    margin-left: 5%;
 }
 td,
 th {
