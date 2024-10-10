@@ -31,6 +31,25 @@
     color: #a9a9a9;
     font-size: 15px;
 }
+@media screen and (max-width: 992px) {
+    .container {
+	margin-left: 0%;
+	margin-right: 0%;
+    }
+
+    .centre {
+	padding-left: 0;
+    }
+
+    .post {
+	margin-left: 0%;
+    }
+
+    .toc {
+	display: none;
+    }
+}
+
 
 li.toc-entry a {
     color: #a9a9a9;
