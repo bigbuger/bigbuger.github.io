@@ -10,6 +10,7 @@ pre.highlight {
     background: #eff1ff;
     max-width: 90%;
     margin-left: 5%;
+    padding-left: 4px;
 }
 
 .highlight .err {

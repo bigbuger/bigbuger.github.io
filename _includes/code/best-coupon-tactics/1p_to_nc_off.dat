@@ -1,0 +1,21 @@
+# 多优惠券，存在互斥
+data;
+set Product := p1 p2 p3;
+set Coupon := c1 c2 c3;
+
+/* 商品价格 */
+param p :=
+    p1 4
+    p2 3
+    p3 5 ;
+
+/* c 最大可用 w 折扣  */
+param : c  w :=
+     c1 5  0.2
+     c2 4  0.15
+     c3 10 0.1 ;
+
+/* 互斥关系 */
+param a default 0 :=
+     [c1,c3] 1 ;
+end;
