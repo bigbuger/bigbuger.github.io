@@ -4,8 +4,7 @@
 .container {
     padding-left:  1.5rem;
     padding-right: 1.5rem;
-    margin-left: 5%;
-    margin-right: 20%;
+   
     margin-top: 0;
     background: white;
     min-height: 30rem;
@@ -16,33 +15,27 @@
 }
 
 .centre {
-    //max-width: 50rem;
+    margin-left: 20%;
+    margin-right: 20%;
+    max-width: 80rem;
     padding-left: 12rem;
 }
 
-.post {
-    margin-left: 10%;
-}
-
 .toc {
+    margin-left: 12%;
     max-width: 100rem;
     position: fixed;
     float: left;
     color: #a9a9a9;
     font-size: 15px;
 }
+
+// auto hidden toc
 @media screen and (max-width: 980px) {
-    .container {
+    .centre {
 	margin-left: 0%;
 	margin-right: 0%;
-    }
-
-    .centre {
-	padding-left: 0;
-    }
-
-    .post {
-	margin-left: 0%;
+	padding-left: 0rem;
     }
 
     .toc {
