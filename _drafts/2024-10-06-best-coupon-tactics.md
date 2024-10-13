@@ -163,13 +163,13 @@ $$
 有模型了，就可用开始写代码丢给求解器来帮我们解决问题了。  
 这里使用 [glpk](https://www.gnu.org/software/glpk/) 进行求解。
 
-先定义我们的数据文件 *one_product_to_one_coupon.dat* :
+先定义我们的数据文件 *1p_to_1c.dat* :
+{%capture 1p_to_1c_data %}{% include /code/best-coupon-tactics/1p_to_1c.dat %}{%endcapture%}
+<pre class="highlight">{{ 1p_to_1c_data | gmpl }}</pre>
 
-<pre class="highlight">{% include /code/best-coupon-tactics/1p_to_1c.dat %}</pre>
-
-为了进行求解，我们要有 gmpl 代码 *1p_to_1c.mod*，其实就是前面的数学模型原样翻译:
-
-<pre class="highlight">{% include /code/best-coupon-tactics/1p_to_1c.mod %}</pre>
+为了进行求解，我们要有 gmpl 代码 *1p_to_1c.mod*，其实就是前面的数学模型原样翻译:  
+{%capture 1p_to_1c_mod %}{% include /code/best-coupon-tactics/1p_to_1c.mod %}{%endcapture%}
+<pre class="highlight">{{ 1p_to_1c_mod | gmpl }}</pre>
 
 运行:
 ```shell
@@ -484,10 +484,12 @@ $$
 
 ### 求解器求解
 *fixed_amount.dat*
-<pre class="highlight">{% include /code/best-coupon-tactics/fixed_amount.dat%}</pre>
+{%capture fixed_amount_data %}{% include /code/best-coupon-tactics/fixed_amount.dat %}{%endcapture%}
+<pre class="highlight">{{ fixed_amount_data | gmpl }}</pre>
 
 *fixed_amount.mod*
-<pre class="highlight">{% include /code/best-coupon-tactics/fixed_amount.mod%}</pre>
+{%capture fixed_amount_mod %}{% include /code/best-coupon-tactics/fixed_amount.mod %}{%endcapture%}
+<pre class="highlight">{{ fixed_amount_mod | gmpl }} </pre>
 
 ```shell
 glpsol -m fixed_amount.mod -d fixed_amount.dat | \
