@@ -1,3 +1,4 @@
+# -*- mode: gmpl;-*-
 # 多优惠券，存在互斥
 data;
 set Product := p1 p2 p3;

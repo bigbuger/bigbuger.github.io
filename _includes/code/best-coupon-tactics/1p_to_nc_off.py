@@ -23,20 +23,21 @@ m.x = Var(m.Product, m.Coupon, domain = Binary)
 
 # 目标: 最小化付款金额
 m.d = Objective(
-    rule = lambda m:
-    sum(m.p[i] * (prod(1 - m.w[j] * m.x[i, j] for j in m.Coupon))
-        for i in m.Product),
-    sense = minimize)
+    rule = lambda m: sum(m.p[i] * (prod(1 - m.w[j] * m.x[i, j] for j in m.Coupon)) for i in m.Product),
+    sense = minimize
+)
 
 
 # 每张优惠券不能超过最大可用金额
-m.cap = Constraint(m.Coupon,
-                   rule = lambda m, j:
-                   sum(m.p[i] * m.x[i, j] for i in m.Product) <= m.c[j])
+m.cap = Constraint(
+    m.Coupon,
+    rule = lambda m, j: sum(m.p[i] * m.x[i, j] for i in m.Product) <= m.c[j]
+)
 
-m.exclusive = Constraint(m.Product, m.Coupon, m.Coupon,
-                         rule = lambda m, i, g, k:
-                         (m.x[i, g] + m.x[i, k]) * m.a[g, k] <= 1)
+m.exclusive = Constraint(
+    m.Product, m.Coupon, m.Coupon,
+    rule = lambda m, i, g, k: (m.x[i, g] + m.x[i, k]) * m.a[g, k] <= 1
+)
 
 data = DataPortal()
 filename = sys.argv[1]

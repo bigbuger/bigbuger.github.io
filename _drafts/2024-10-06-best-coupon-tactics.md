@@ -167,13 +167,13 @@ $$
 
 <pre class="highlight">{% include /code/best-coupon-tactics/1p_to_1c.dat %}</pre>
 
-为了进行求解，我们要有 gmpl 代码 *gmpl_1p_to_1c.mod*，其实就是前面的数学模型原样翻译:
+为了进行求解，我们要有 gmpl 代码 *1p_to_1c.mod*，其实就是前面的数学模型原样翻译:
 
-<pre class="highlight">{% include /code/best-coupon-tactics/gmpl_1p_to_1c.mod %}</pre>
+<pre class="highlight">{% include /code/best-coupon-tactics/1p_to_1c.mod %}</pre>
 
 运行:
 ```shell
-glpsol -m gmpl_1p_to_1c.mod -d 1p_to_1c.dat | \
+glpsol -m 1p_to_1c.mod -d 1p_to_1c.dat | \
 awk '/result end/{flag=0;next} flag; /result start/{flag=1;next;}'
 ```
 
@@ -191,10 +191,11 @@ awk '/result end/{flag=0;next} flag; /result start/{flag=1;next;}'
 Let's go (*^_^*)
 
 ### 问题
-本问题的要素和前面一样，只不过条件变了
+本问题的要素和前面一样，不过条件变了
 - 条件1: 每个优惠券 $j$ 应用的商品金额不能超过 $c_{j}$ (和前面一样)
 - 条件2: 每个商品可用多个优惠券，部分优惠券之间存在互斥关系（即同一个商品不能同时应用互斥的券）
 
+***
 ### 建模
 来创建目标函数吧。这里要求的变量和前面一摸一样，$x_{ij}$ 为是否为商品 $i$ 使用优惠券 $j$。
 
@@ -258,22 +259,22 @@ $$
 
 这就完全和武器目标分配问题的目标函数一样了。不过对于同一类优惠券，可以建模为多张同等价值的优惠券，目标函数就变为上面所设计的了。
 
+***
 ### 求解器求解
 我们的目标函数是非线性的。glpk 不支持，故此处用 [pyomo](https://www.pyomo.org/) 调用 [scip](https://www.scipopt.org/) 来求解。
 
 数据文件 *1p_to_nc_off.dat*
 <pre class="highlight">{% include /code/best-coupon-tactics/1p_to_nc_off.dat%}</pre>
 
-代码文件 *pyomo_1p_to_nc_off.py*  
-(别学这缩进，是为了适配网页内容宽度。
-当然也可用不用 lambda，定义一个函数，但是我不喜欢，DSL 的魅力可见一斑)
+代码文件 *1p_to_nc_off.py*  
+(当然也可用不用 lambda，定义一个函数，但是我不喜欢，DSL 的魅力可见一斑)
 ```python
-{% include /code/best-coupon-tactics/pyomo_1p_to_nc_off.py %}
+{% include /code/best-coupon-tactics/1p_to_nc_off.py %}
 ```
 
 运行:
 ```shell
-python3 pyomo_1p_to_nc_off.py 1p_to_nc_off.dat
+python3 1p_to_nc_off.py 1p_to_nc_off.dat
 ```
 
 >优惠券  c1 应用到下列商品:   
@@ -285,6 +286,7 @@ python3 pyomo_1p_to_nc_off.py 1p_to_nc_off.dat
 >p2  
 >最小付款:  9.76  
 
+***
 ### 应用顺序问题
 细心的读者可能已经发觉，我们没有考虑到优惠券的应用顺序。  
 优惠券上限的判断，我们一直默认取的商品原价格，而不是上一个券生效后的价格。
@@ -310,6 +312,7 @@ python3 pyomo_1p_to_nc_off.py 1p_to_nc_off.dat
 
 嗯，假如我们进行一番推理，是能得到一个新的目标函数。这里笔者就不细写，反正本节已经是“真空中球形鸡” :)。
 
+***
 ## 满减
 读者看到这里，可能会跃跃欲试，打开手中的各种 app，准备买买买。  
 结果看到自己的卡包，只想大骂笔者。“啊，楼主你也没讲优惠券有使用门槛呀！还有我都是满减券，也没有折扣券呀！你这是不是在闹着玩？整这么多数学公式和代码，还真空球形。”  
@@ -321,15 +324,15 @@ python3 pyomo_1p_to_nc_off.py 1p_to_nc_off.dat
 
 - 商品 $N$ 个，每个商品 $i$ 价格为 $p_{i}$
 - 优惠券 $M$ 个， 每个优惠券 $j$ 减免金额为 $w_{j}$
-- 条件1: 每个优惠券 $j$ 应用的商品金额不能超过 $l_{j}$
-- 条件2: 每个优惠券 $j$ 最小可以应用的金额为 $h_{j}$
-- 条件3: 每个商品只能用 1 张优惠券
+- 条件1: 每个优惠券 $j$ 应用的商品金额不能超过 $h_{j}$
+- 条件2: 每个商品只能用 1 张优惠券
+- 条件3: 每个优惠券 $j$ 最小可以应用的金额为 $l_{j}$
 - 求: 怎样应用优惠券能达到最大优惠
 
+***
 ### 建模
-
-记 $x_{ij}$ 为是否为商品 $i$ 使用优惠券 $j$，使用时 $x_{ij} = 1$，否则 $x_{ij} = 0$
-条件1和条件3与前面讨论的并无不同，可以直接套用。
+同理，记 $x_{ij}$ 为是否为商品 $i$ 使用优惠券 $j$，使用时 $x_{ij} = 1$，否则 $x_{ij} = 0$
+条件1和条件2与前面讨论的并无不同，可以直接套用。不同点便是目标函数和条件3（优惠门槛）
 
 #### 目标函数
 直接减金额和折扣类型的优惠计算不一样。前者无论应用到多少商品，都只能扣一次，后者却是会累计扣减所有商品的优惠金额。我们的模型要表达出只扣一次，和前面的模型构建方式会有很大的不同。
@@ -342,7 +345,7 @@ max \sum\limits_{j=1}^{M} w_{j}(if \quad any \quad x_{ij} = 1 \quad \forall i \i
 $$
 
 但是嘛，线性模型不能用 if、or 之类的逻辑。那么我们只能另辟蹊径。
-先引入一个中间变量 $y_{j} \in [0, 1]$  来表示后面的逻辑，即 \(y_{j} =  x_{0j} \; or \; x_{1j} \; or ...\)
+先引入一个中间变量 $y_{j} \in [0, 1]$  来表示后面的逻辑，即 $y_{j} =  x_{0j} \; or \; x_{1j} \; or ...$
 则目标函数为
 
 $$
@@ -361,10 +364,10 @@ s.t. \quad y_{j} \ge x_{ij} \quad \forall j \in [1,M] \quad \forall i \in [1,N]
 $$
 
 对于后一种情况，所有 $x$ 都为 0。我们是不是可以让 $y_{i} \le x_{ij} \forall i \in [1, N]$ 呢？
-答案其实是不行的。因为这和前面一种情况显然冲突。当有部分 $x$ 为 1，部分为 0 时，$y$ 无法同时满足该两个条件。
-我们可以换个思路，当 $x$ 都为 0 时，其和为 0，$y_{i} = 0$ 满足 $y_{j} \le \sum\limits_{i=1}^{N}x_{ij}$ ;
+答案其实是不行的。因为这和前面一种情况显然冲突。当有部分 $x$ 为 1，部分为 0 时，$y$ 无法同时满足该两个条件。  
+我们可以换个思路，当 $x$ 都为 0 时，其和为 0，$y_{i} = 0$ 满足 $y_{j} \le \sum\limits_{i=1}^{N}x_{ij} \tag{4.1}$
 
-反过来，部分 $x$ 为 1 时， 其和必然大于或等于 1，$y_{i} = 1$ 也满足 $y_{j} \le \sum\limits_{i=1}^{N}x_{ij}$。
+反过来，部分 $x$ 为 1 时， 其和必然大于或等于 1，$y_{i} = 1$ 也满足式 4.1。
 综上 $y_{i}$ 的约束条件可以表示如下:
 
 $$
@@ -374,7 +377,8 @@ y_{j} \le \sum\limits_{i=1}^{N}x_{ij}
 \end{cases}
 $$
 
-#### 最小可用金额
+#### 优惠门槛条件
+
 对于每个优惠券的最小可用金额，我们可以模仿最大可用金额的方式得到一下条件:
 
 $$
@@ -383,26 +387,25 @@ $$
 
 但是，这个条件并不是要直接应用，因为这个条件全部满足，则意味着每个优惠券都要得到使用，而我们并不要求每次用上所有优惠券。  
 
-直接理解我们的约束条件，对于每个优惠券 $j$ ，当上诉条件不满足时，意味着 $y_{j} = 0$，即不能使用该优惠券。
-可用这样表示
+直接理解我们的约束条件，对于每个优惠券 $j$ ，当 $y_{j} = 1$时，即使用该券，必须有应用该券的商品金额总和大于$l_{j}$: $\sum\limits_{i=1}^{N} p_{i}x_{ij} \lt l_{j}$  
+用 if 语句可以这样表示
 $$
-if \quad \sum\limits_{i=1}^{N} p_{i}x_{ij} \lt l_{j} \quad then \quad y_{j} = 0
+if \quad y_{j} = 0 \quad then \quad \sum\limits_{i=1}^{N} p_{i}x_{ij} \lt l_{j} \tag{4.2}
 $$
 
 
 嗯，没错，又是一个逻辑条件。
 
-#### 分类讨论
+##### 分类讨论
+> ⚠️ 这里的推导流程有点牵强，因为笔者是知道答案后，尝试凑出了的流程。
+> 读者可以直接跳到[下一节](#大-m-表示法)
 
 同样，我们进行分类讨论。当 $y_{j} = 1$ 时，要求 $\sum\limits_{i=1}^{N} p_{i}x_{ij} \ge l_{j}$ 必须成立。我们可以想办法在后者中凑一个 1 出了。简单变换可得:
 $$
-1 - 1 \ge l_{j} - \sum\limits_{i=1}^{N}p_{i}x_{ij}
+1 - 1 \; \ge \; l_{j} - \sum\limits_{i=1}^{N}p_{i}x_{ij} \tag{4.3}
 $$
-
-// TODO 推理过程是否流畅
-
-这里出现了两个 1，我们要替换哪个呢？这就要考虑 $y_{j}=0$ 的情况。
-当 $y_{i} = 0$ 时， 对于所有 $i\in[1,N]$ ， 有 $x_{ij} = 0$ 都成立。
+这里出现了两个 1，我们要替换哪个呢？来考虑一下 $y_{j}=0$ 的情况。  
+由$y$的定义可知，当 $y_{i} = 0$ 时， 对于所有 $i\in[1,N]$ ， 有 $x_{ij} = 0$ 都成立。(不用该券，所有商品都不用咯)
 此时 $l_{j} - \sum\limits_{i=1}^{N}p_{i}x_{ij} = l_{j} - 0 = l_{j}$ 。
 则 $l_{j} \ge l_{j} - \sum\limits_{i=1}^{N}p_{i}x_{ij}$必定成立。同理，我们对此式凑出 0 可得:
 
@@ -413,26 +416,55 @@ $$
 用 $y_{j}$ 替换 0，得 
 
 $$ 
-l_{j}(1-y_{j}) \ge l_{j} - \sum\limits_{i=1}^{N}p_{i}x_{ij} \tag{4.1}
+l_{j}(1-y_{j}) \ge l_{j} - \sum\limits_{i=1}^{N}p_{i}x_{ij} \tag{4.4}
 $$
-对比可知此式也可由对前式第二个 1 进行替换后进行放大得到。
 
-#### 验证条件
-我们来简单验证该条件是否可以表达出这个逻辑：若 $y_{j} = 1$ 则 $\sum\limits_{i=1}^{N} p_{i}x_{ij} \ge l_{j}$。  
-对于该命题，将 $y_{j} = 1$ 代入  4.1 中, 得
+对比式4.3：我们在式4.3左边乘以 $l_{j}$，不会影响结果，因为左边是 0
+
+$$
+l_{j}(1-1) \ge l_{j} - \sum\limits_{i=1}^{N}p_{i}x_{ij}
+$$
+
+1-1 替换为 $1-y_{j}$ 则可得到式4.4。
+
+
+***
+这样分类讨论得到的式子可行？
+我们来验证式4.4是否可以表达出式 4.2 的逻辑: 若 $y_{j} = 1$ 则 $\sum\limits_{i=1}^{N} p_{i}x_c{ij} \ge l_{j}$。  
+对于该命题，将 $y_{j} = 1$ 代入 4.4 中, 得
 
 $$
 l_{j}(1-1) \ge l_{j} - \sum\limits_{i=1}^{N}p_{i}x_{ij} \\
+$$
+
+$$
 0 \ge l_{j} - \sum\limits_{i=1}^{N}p_{i}x_{ij} \\
+$$
+
+$$
 \sum\limits_{i=1}^{N} p_{i}x_{ij} \ge l_{j}
 $$
 
 即原命题成立。
-此处利用算术条件实现逻辑条件的方法为大 [[id:20240830T192223.193722][M 表示法]]。
 
-虽然前面我们推导时利用了 $y$ 和 $x$ 的关系，我们通过验证推导，发现就算没有此处的特殊关系，这种表示法依旧适用。
-即 $l_{j}$ 为 $f = l_{j} - \sum\limits_{i=1}^{N}p_{i}x_{ij}$ 的上界 M，可用 $M(1-y_{j}) \ge f$ 为约束实现当 $y_{j} = 1$ 时，必有 $f \le 0$ 的逻辑。
 
+***
+虽然前面我们推导时利用了 $y$ 和 $x$ 的关系，其实就算没有此处的特殊关系，这种表示法依旧适用。这是一个通用的技巧 "大 M 表示法"
+
+##### 大 M 表示法
+
+利用算术条件实现逻辑条件的方法为 [大M 表示法](https://ww2.mathworks.cn/help/optim/ug/integer-logical-modeling.html)。
+> M 为 $f$ 的上界 M，可用 $M(1-y_{j}) \ge f$ 为约束条件，来实现“当 $y_{j} = 1$ 时，必有 $f \le 0$” 的逻辑。
+我们这里的 $f$ 就是优惠券门槛减去应用商品的金额：$l_{j} - \sum\limits_{i=1}^{N}p_{i}x_{ij}$（要求当 $y_{j}$ 时，金额总和大于其门槛嘛，这个式就是小于0咯）。  
+又易知 $f$ 的上确界为 $l_{j}$, 代入大 M 表示法的
+
+$$ 
+l_{j}(1-y_{j}) \ge l_{j} - \sum\limits_{i=1}^{N}p_{i}x_{ij}
+$$
+
+
+
+***
 #### 模型
 综上所述，我们的模型如下
 
@@ -451,7 +483,22 @@ l_{j}(1-y_{j}) \ge l_{j} - \sum\limits_{i=1}^{N}p_{i}x_{ij} \quad \forall j \in 
 $$
 
 ### 求解器求解
-TODO
+*fixed_amount.dat*
+<pre class="highlight">{% include /code/best-coupon-tactics/fixed_amount.dat%}</pre>
+
+*fixed_amount.mod*
+<pre class="highlight">{% include /code/best-coupon-tactics/fixed_amount.mod%}</pre>
+
+```shell
+glpsol -m fixed_amount.mod -d fixed_amount.dat | \
+awk '/result end/{flag=0;next} flag; /result start/{flag=1;next;}'
+```
+
+>优惠券 c1, 应用到下列商品:  
+>优惠券 c2, 应用到下列商品:  
+>优惠券 c3, 应用到下列商品:  
+>p1 p2   
+>最大优惠金额: 4.000000
 
 ### 优惠溢出问题
 TODO

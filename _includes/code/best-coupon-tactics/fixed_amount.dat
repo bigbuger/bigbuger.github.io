@@ -1,0 +1,20 @@
+# -*- mode: gmpl;-*-
+# 多满减优惠券，每一个商品只能应用一个券
+data;
+set Product := p1 p2 p3;
+set Coupon := c1 c2 c3;
+
+# 商品价格
+param p :=
+    p1 4
+    p2 3
+    p3 2 ;
+
+# 优惠券
+param : l  h  w :=
+     c1 6  6  2
+     c2 4  5  1
+     c3 7  8  4
+     ;
+
+end;

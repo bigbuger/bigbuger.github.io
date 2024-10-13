@@ -1,3 +1,4 @@
+# -*- mode: gmpl;-*-
 data;
 set Product := p1 p2 p3;
 set Coupon := c1 c2;
