@@ -4,7 +4,7 @@ layout: post
 tags:   数学 算法 运筹学 线性规划 整数规划
 ---
 我们在网上购物，肯定会想着如何用更便宜的价格进行购买。这绕不开使用优惠券。  
-不过现在的平台把优惠券的使用方法和门槛搞得越来越花里胡哨。什么双11、618 等等“购物节”，买个东西想要算清价格怎么来的，难度堪比一些中学数学题🤦。  
+不过现在的平台把优惠券的使用方法和门槛搞得越来越花里胡哨。什么双11、618 等等“购物节”，买个东西想要算清价格怎么来的，难度堪比高考大题🤦。  
 本文就针对其中几种简单的情况进行建模，:p。
 
 走，先从最简单的情况入手：手中只有一个打折优惠券，但是该券有使用金额上限。
@@ -29,7 +29,7 @@ tags:   数学 算法 运筹学 线性规划 整数规划
 嗯，抄录一下数学模型 （$x_i$ 为商品 $i$ 是否“塞进来”, 值当然就是 0-1 嘛）:
 
 $$
- \max \sum\limits_{i=1}^{N} p_{i}x_{i}
+maximize \quad \sum\limits_{i=1}^{N} p_{i}x_{i}
 $$
 
 $$
@@ -142,7 +142,7 @@ $$
 综上，我们的模型为:
 
 $$
- \max \quad \sum\limits_{j=1}^{M} \sum\limits_{i=1}^{N} p_{i}w_{j} x_{ij}
+ maximize \quad \sum\limits_{j=1}^{M} \sum\limits_{i=1}^{N} p_{i}w_{j} x_{ij}
 $$
 
 $$
@@ -236,7 +236,7 @@ $$
 综上，我们的模型为
 
 $$
-\min \quad \sum\limits_{i=1}^{N}p_{i}\prod\limits_{j=1}^{M}(1-w_{j}x_{ij})
+minimize \quad \sum\limits_{i=1}^{N}p_{i}\prod\limits_{j=1}^{M}(1-w_{j}x_{ij})
 $$
 
 $$
@@ -254,7 +254,7 @@ WTA 问题其实是已知敌人们的“血条”，和我们武器（一次性�
 如果我们同优惠券有多张，那么 $x_{ij}$ 表示优惠券 $j$ 应用到商品 $i$ 的次数。则目标函数为
 
 $$
- \min \quad \sum\limits_{i=1}^{N}p_{i}\prod\limits_{j=1}^{M}(1-w_{j})^{x_{ij}}
+ minimize \quad \sum\limits_{i=1}^{N}p_{i}\prod\limits_{j=1}^{M}(1-w_{j})^{x_{ij}}
 $$
 
 这就完全和武器目标分配问题的目标函数一样了。不过对于同一类优惠券，可以建模为多张同等价值的优惠券，目标函数就变为上面所设计的了。
@@ -341,7 +341,7 @@ python3 1p_to_nc_off.py 1p_to_nc_off.dat
 如果我们在目标函数中可以使用逻辑表达，则目标函数是这样
 
 $$
-max \sum\limits_{j=1}^{M} w_{j}(if \quad any \quad x_{ij} = 1 \quad \forall i \in [1,N])
+maximize \sum\limits_{j=1}^{M} w_{j}(if \quad any \quad x_{ij} = 1 \quad \forall i \in [1,N])
 $$
 
 但是嘛，线性模型不能用 if、or 之类的逻辑。那么我们只能另辟蹊径。
@@ -349,14 +349,14 @@ $$
 则目标函数为
 
 $$
-max \sum\limits_{j=1}^{M} w_{j}y_{j}
+maximize \sum\limits_{j=1}^{M} w_{j}y_{j}
 $$
 
 剩下的就是如何将 $y_{j}$ 的逻辑用 $x_{ij}$ 的算术条件表达出。
 
 分两种情况讨论，$y_{j} = 1$ 和 $y_{j} = 0$
 
-对于前者，至少有一个 $x_{ij} = 1$ 成立， 又因为 $y_{j}$ 和 $x$ 都是二元变量，所有 $y_{j}$ 为 $max(x_{ij} \forall i \in [1,N])$
+对于前者，至少有一个 $x_{ij} = 1$ 成立， 又因为 $y_{j}$ 和 $x$ 都是二元变量，所有 $y_{j}$ 为 $maximize(x_{ij} \forall i \in [1,N])$
 则约束条件可以表达为
 
 $$
@@ -397,7 +397,7 @@ $$
 嗯，没错，又是一个逻辑条件。
 
 ##### 分类讨论
-> ⚠️ 这里的推导流程有点牵强，因为笔者是知道答案后，尝试凑出了的流程。
+> ⚠️ 这里的推导流程可能有点牵强，笔者是知道具体的方法后，尝试凑出了的流程。
 > 读者可以直接跳到[下一节](#大-m-表示法)
 
 同样，我们进行分类讨论。当 $y_{j} = 1$ 时，要求 $\sum\limits_{i=1}^{N} p_{i}x_{ij} \ge l_{j}$ 必须成立。我们可以想办法在后者中凑一个 1 出了。简单变换可得:
@@ -469,7 +469,7 @@ $$
 综上所述，我们的模型如下
 
 $$
-max \sum\limits_{j=1}^{M} w_{j}y_{j}
+maximize \sum\limits_{j=1}^{M} w_{j}y_{j}
 $$
 
 $$
@@ -503,7 +503,79 @@ awk '/result end/{flag=0;next} flag; /result start/{flag=1;next;}'
 >最大优惠金额: 4.000000
 
 ### 优惠溢出问题
-TODO
+对于满减券，有可能会出现扣减金额大于订单金额。在现实中出现这里情况时，一般会当作免单计算，避免负数。  
+满减金额我们以优惠金额为目标时，会出现只要一个商品就可以得到优惠金额，但是应付金额不是最优。  
+例如: 
+商品a 4元，商品b 1元，商品c 2元，券c 满4元减8元；最高可用金额为8元 ；对于我们的模型，有4个可行解:
+1. 券c应用：a
+2. 券c应用：a b 
+3. 券c应用：a c
+4. 券c应用：a b c
+因为上面4个解都能得到8元的优惠。单从实际情况来看，解4是完全免单，解1只能优惠4元，解2、3同理也不是最优。
+
+***
+所有我们要将目标改为“应付金额”最小化。  
+这里用拆单的方式来进行：
+- 每一张优惠券对应一张单，单可以没有商品
+- 额外加一张券 zero，其门槛为 0，上限无限大（可以用全部商品金额来表示），用来表示不用优惠券的订单
+- 每个商品必须属于一张单
+
+为表示扣减金额大于订单金额是免单（而不是负金额），我们引入 max 函数，目标函数就变为这样（$j=0$ 表示 zero 券）:  
+
+$$
+\sum\limits_{j=0}^{M}(max(\sum\limits_{i=1}^{N}x_{ij}p_{i} - w_{j}y_{j}, 0))
+$$
+
+要将其最小化。 
+
+max 函数，其实这个也可用大 M 表示法处理为线性算术不等式组。  
+不过这里有一个小技巧。引入一个变量 $z$, 另其满足一下条件:
+
+$$
+z_{j} \ge 0
+$$
+
+$$
+z_{j} \ge \sum\limits_{i=1}^{N}x_{ij}p_{i} - w_{j}y_{j}
+$$
+
+那么我们的目标就是:
+$$
+minimize \quad \sum\limits_{j=0}^{M}z_{j}
+$$
+原因是我们的目标是最小化，每个 $z_{j}$ 都要试图最小化，根据上面的约束，z_{j} 自动会选 $\sum\limits_{i=0}^{N}x_{ij}p_{i} - w_{j}y_{j}$ 和 0 两个值中的最大值。
+***
+加上每个商品必须属于某张订单，可得模型：
+$$
+minimize \quad \sum\limits_{j=0}^{M}z_{j}
+$$
+
+$$
+s.t. \begin{cases}
+\sum\limits_{j=0}^{M} x_{ij} = 1 \quad \forall i \in [1,N] \\
+y_{j} \ge x_{ij} \quad \forall j \in [1,M] \quad \forall i \in [1,N] \\
+y_{j} \le \sum\limits_{i=1}^{N}x_{ij} \\
+\sum\limits_{i=1}^{N} p_{i}x_{ij} \le h_{j} \quad \forall j \in [0, M] \\
+l_{j}(1-y_{j}) \ge l_{j} - \sum\limits_{i=1}^{N}p_{i}x_{ij} \quad \forall j \in [0,M] \\
+z_{j} \ge 0  \forall j \in [0, M] \\
+z_{j} \ge \sum\limits_{i=1}^{N}x_{ij}p_{i} - w_{j}y_{j} \quad \forall j \in [0, M]
+\end{cases}
+$$
+
+代码:
+{%capture fixed_amount_overflow %}{% include /code/best-coupon-tactics/fixed_amount_overflow.mod %}{%endcapture%}
+<pre class="highlight">{{ fixed_amount_mod | gmpl }}</pre>
+
+>result start
+>优惠券 zero, 应用到下列商品:  
+>  
+>优惠券 c1, 应用到下列商品:  
+>p1 p2 p3   
+>优惠券 c2, 应用到下列商品:  
+>  
+>最小应付金额: 0.000000  
+>result end  
+
 
 ## 融合：满减和满折同时存在
-TODO
+

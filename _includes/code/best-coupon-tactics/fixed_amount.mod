@@ -4,9 +4,9 @@ set Coupon;
 
 param p{Product}; # 商品价格
 
-param l{Coupon};               # 优惠券下限
-param h{j in Coupon}, >= l[j]; # 优惠券上限
-param w{Coupon}, >= 0;         # 优惠金额
+param l{Coupon};                     # 优惠券下限
+param h{j in Coupon}, >= l[j];       # 优惠券上限
+param w{j in Coupon}, >= 0, <= h[j]; # 优惠金额
 
 var x{Product, Coupon} binary;
 var y{Coupon} binary;
