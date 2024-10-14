@@ -578,4 +578,46 @@ $$
 
 
 ## 融合：满减和满折同时存在
+现在，打折券和满减券都讨论完了。  
+那么～～～～，我的回合。发动魔法卡～融合，将满减满折券合并，用了表示同时有两种类型券的情况:
+- 每个券有两个属性 $w_j$ 固定减免金额和 $d_j$ 减免比例；两者最多有一个不为 0, 可以程序对输入检查。
+
+
+应付金额表达式超进化～～～  
+$$
+z_{j} \ge \sum\limits_{i=1}^{N}x_{ij}p_{i} - w_{j}y_{j} - d_{j} y_{j} \sum\limits_{i=1}^{N}x_{ij}p_{i} \quad \forall j \in [0, M]
+$$
+
+简化:  
+$$
+z_{j} \ge (1-d_{j}y_{j}) \sum\limits_{i=1}^{N}x_{ij}p_{i} - w_{j}y_{j} \quad \forall j \in [0, M]
+$$
+
+
+综上，模型为：
+
+$$
+minimize \quad \sum\limits_{j=0}^{M}z_{j}
+$$
+
+$$
+s.t. \begin{cases}
+\sum\limits_{j=0}^{M} x_{ij} = 1 \quad \forall i \in [1,N] \\
+y_{j} \ge x_{ij} \quad \forall j \in [1,M] \quad \forall i \in [1,N] \\
+y_{j} \le \sum\limits_{i=1}^{N}x_{ij} \\
+\sum\limits_{i=1}^{N} p_{i}x_{ij} \le h_{j} \quad \forall j \in [0, M] \\
+l_{j}(1-y_{j}) \ge l_{j} - \sum\limits_{i=1}^{N}p_{i}x_{ij} \quad \forall j \in [0,M] \\
+z_{j} \ge 0  \forall j \in [0, M] \\
+z_{j} \ge (1-d_{j}y_{j}) \sum\limits_{i=1}^{N}x_{ij}p_{i} - w_{j}y_{j} \quad \forall j \in [0, M]
+\end{cases}
+$$
+
+> 这里考虑的是非叠加情况。
+> 若要建模可以先用满减券，后叠加最多一张折扣券，且后叠加的券金额门槛用前一张券算完再判断的话，可这么尝试：
+> - 满减券 $M$ 张，折扣券 $Q$ 张，则我们的订单总共有 $(M+1) * (Q+1)$ 张(笛卡尔积)
+> - 中间变量 $z_{j,k}$ 表示每张单用满减券后的金额($j \in [0, (M+1)]$，$k \ in [0, Q+1]$), 需要用 大 M 表示法精确描述出 max 逻辑
+> - 利用 ${z_{jk}}$ 判断是否达到折扣券门槛
+> - 最终优惠金额 $z'_{j,k}$，表示每张单的最终金额
+> 哈哈，我先留坑，不一定会补，再见。
+
 
