@@ -1,5 +1,7 @@
 # Syntax highlighting
 # rougify style 'base16.solarized.light'> css/syntax.css
+safe: true
+
 highlighter:         rouge
 markdown:            kramdown
 
@@ -30,3 +32,10 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
   #- jekyll-toc
+
+whitelist:
+  - jemoji
+  - jekyll-org
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  

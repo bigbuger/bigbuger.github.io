@@ -166,12 +166,11 @@ $$
 这里使用 [glpk](https://www.gnu.org/software/glpk/) 进行求解。
 
 先定义我们的数据文件 *1p_to_1c.dat* :
-{%capture 1p_to_1c_data %}{% include /code/best-coupon-tactics/1p_to_1c.dat %}{%endcapture%}
-<pre class="highlight">{{ 1p_to_1c_data | gmpl }}</pre>
+
+{% include gmpl.liquid file="/code/best-coupon-tactics/1p_to_1c.dat" %}
 
 为了进行求解，我们要有 gmpl 代码 *1p_to_1c.mod*，其实就是前面的数学模型原样翻译:  
-{%capture 1p_to_1c_mod %}{% include /code/best-coupon-tactics/1p_to_1c.mod %}{%endcapture%}
-<pre class="highlight">{{ 1p_to_1c_mod | gmpl }}</pre>
+{% include gmpl.liquid file="/code/best-coupon-tactics/1p_to_1c.mod" %}
 
 运行:
 ```shell
@@ -266,7 +265,7 @@ $$
 我们的目标函数是非线性的。glpk 不支持，故此处用 [pyomo](https://www.pyomo.org/) 调用 [scip](https://www.scipopt.org/) 来求解。
 
 数据文件 *1p_to_nc_off.dat*
-<pre class="highlight">{% include /code/best-coupon-tactics/1p_to_nc_off.dat%}</pre>
+{% include gmpl.liquid file="/code/best-coupon-tactics/1p_to_nc_off.dat" %}
 
 代码文件 *1p_to_nc_off.py*  
 ```python
@@ -485,12 +484,10 @@ $$
 
 ### 求解器求解
 *fixed_amount.dat*
-{%capture fixed_amount_data %}{% include /code/best-coupon-tactics/fixed_amount.dat %}{%endcapture%}
-<pre class="highlight">{{ fixed_amount_data | gmpl }}</pre>
+{% include gmpl.liquid file="/code/best-coupon-tactics/fixed_amount.dat" %}
 
 *fixed_amount.mod*
-{%capture fixed_amount_mod %}{% include /code/best-coupon-tactics/fixed_amount.mod %}{%endcapture%}
-<pre class="highlight">{{ fixed_amount_mod | gmpl }} </pre>
+{% include gmpl.liquid file="/code/best-coupon-tactics/fixed_amount.mod" %}
 
 ```shell
 glpsol -m fixed_amount.mod -d fixed_amount.dat | \
@@ -574,8 +571,7 @@ z_{j} \ge \sum\limits_{i=1}^{N}x_{ij}p_{i} - w_{j}y_{j} \quad \forall j \in [0, 
 $$
 
 代码:
-{%capture fixed_amount_overflow %}{% include /code/best-coupon-tactics/fixed_amount_overflow.mod %}{%endcapture%}
-<pre class="highlight">{{ fixed_amount_mod | gmpl }}</pre>
+{% include gmpl.liquid file="/code/best-coupon-tactics/fixed_amount_overflow.mod" %}
 
 >result start
 >优惠券 zero, 应用到下列商品:  
