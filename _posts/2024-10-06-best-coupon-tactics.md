@@ -166,12 +166,12 @@ $$
 这里使用 [glpk](https://www.gnu.org/software/glpk/) 进行求解。
 
 先定义我们的数据文件 *1p_to_1c.dat* :
-{%capture _1p_to_1c_data %}{% include /code/best-coupon-tactics/1p_to_1c.dat %}{%endcapture%}
-<pre class="highlight">{{ _1p_to_1c_data | gmpl }}</pre>
+{%capture 1p_to_1c_data %}{% include /code/best-coupon-tactics/1p_to_1c.dat %}{%endcapture%}
+<pre class="highlight">{{ 1p_to_1c_data | gmpl }}</pre>
 
 为了进行求解，我们要有 gmpl 代码 *1p_to_1c.mod*，其实就是前面的数学模型原样翻译:  
-{%capture _1p_to_1c_mod %}{% include /code/best-coupon-tactics/1p_to_1c.mod %}{%endcapture%}
-<pre class="highlight">{{ _1p_to_1c_mod | gmpl }}</pre>
+{%capture 1p_to_1c_mod %}{% include /code/best-coupon-tactics/1p_to_1c.mod %}{%endcapture%}
+<pre class="highlight">{{ 1p_to_1c_mod | gmpl }}</pre>
 
 运行:
 ```shell
@@ -490,7 +490,7 @@ $$
 
 *fixed_amount.mod*
 {%capture fixed_amount_mod %}{% include /code/best-coupon-tactics/fixed_amount.mod %}{%endcapture%}
-<pre class="highlight">{{ fixed_amount_mod | gmpl}}</pre>
+<pre class="highlight">{{ fixed_amount_mod | gmpl }} </pre>
 
 ```shell
 glpsol -m fixed_amount.mod -d fixed_amount.dat | \
@@ -597,13 +597,13 @@ $$
 应付金额表达式超进化～～～
 
 $$
-z_{j} \ge \sum\limits_{i=1}^{N}x_{ij}p_{i} - w_{j}y_{j} - d_{j} y_{j} \sum\limits_{i=1}^{N}x_{ij}p_{i} \quad \forall j \in [0, M]
+z_{j} \ge \sum\limits_{i=1}^{N}x_{ij}p_{i} - w_{j}y_{j} - d_{j} \sum\limits_{i=1}^{N}x_{ij}p_{i} \quad \forall j \in [0, M]
 $$
 
 简化:
 
 $$
-z_{j} \ge (1-d_{j}y_{j}) \sum\limits_{i=1}^{N}x_{ij}p_{i} - w_{j}y_{j} \quad \forall j \in [0, M]
+z_{j} \ge (1-d_{j}) \sum\limits_{i=1}^{N}x_{ij}p_{i} - w_{j}y_{j} \quad \forall j \in [0, M]
 $$
 
 
@@ -621,7 +621,7 @@ y_{j} \le \sum\limits_{i=1}^{N}x_{ij} \\
 \sum\limits_{i=1}^{N} p_{i}x_{ij} \le h_{j} \quad \forall j \in [0, M] \\
 l_{j}(1-y_{j}) \ge l_{j} - \sum\limits_{i=1}^{N}p_{i}x_{ij} \quad \forall j \in [0,M] \\
 z_{j} \ge 0  \forall j \in [0, M] \\
-z_{j} \ge (1-d_{j}y_{j}) \sum\limits_{i=1}^{N}x_{ij}p_{i} - w_{j}y_{j} \quad \forall j \in [0, M]
+z_{j} \ge (1-d_{j}) \sum\limits_{i=1}^{N}x_{ij}p_{i} - w_{j}y_{j} \quad \forall j \in [0, M]
 \end{cases}
 $$
 
