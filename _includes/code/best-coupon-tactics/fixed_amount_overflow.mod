@@ -15,7 +15,7 @@ param w{j in cz}, >= 0, <= h[j] default 0; # 优惠金额
 
 var x{Product, cz} binary;
 var y{cz} binary;
-var z{cz} binary;
+var z{cz};
 
 minimize t:
     sum{j in cz} z[j];
